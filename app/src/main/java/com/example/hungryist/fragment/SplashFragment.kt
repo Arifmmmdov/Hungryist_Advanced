@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentManager
 import com.example.hungryist.R
 import com.example.hungryist.databinding.FragmentSplashBinding
 
-class SplashFragment(millisInFuture: Long) : Fragment() {
+class SplashFragment : Fragment() {
     private val binding by lazy {
         FragmentSplashBinding.inflate(layoutInflater)
     }
@@ -22,23 +22,21 @@ class SplashFragment(millisInFuture: Long) : Fragment() {
         return binding.root
     }
 
+
+
     override fun onStart() {
         super.onStart()
-        object : CountDownTimer(2000,1000) {
+        object : CountDownTimer(3000,1000) {
             override fun onTick(p0: Long) {
             }
 
             override fun onFinish() {
-                //TODO Move to login or main page
                 val fragmentManager: FragmentManager = parentFragmentManager
                 fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container,LoginOrRegisterFragment::class.java,null)
-                    .addToBackStack("")
                     .commit()
-
             }
-
-        }
+        }.start()
     }
 
 }
