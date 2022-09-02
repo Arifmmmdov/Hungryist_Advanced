@@ -1,4 +1,4 @@
-package com.example.hungryist.activity
+package com.example.hungryist.activity.intro
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
