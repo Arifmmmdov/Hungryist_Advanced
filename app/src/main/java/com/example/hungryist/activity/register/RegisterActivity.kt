@@ -1,51 +1,73 @@
 package com.example.hungryist.activity.register
 
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.TextPaint
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.view.View
-import android.widget.TextView
-import androidx.core.content.ContextCompat
-import com.example.hungryist.R
+import android.widget.Toast
 import com.example.hungryist.databinding.ActivityRegisterBinding
+import javax.security.auth.callback.PasswordCallback
 
 class RegisterActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityRegisterBinding.inflate(layoutInflater)
     }
 
+    private val viewModel by lazy {
+        RegisterViewModel(this)
+    }
+
+    private var isEmailSection = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setClickableSpannableView()
+        viewModel.setClickableSpannableView(binding.termsAndConditions,this)
+        setListeners()
     }
 
-    private fun setClickableSpannableView() {
-        binding.termsAndConditions.movementMethod = LinkMovementMethod.getInstance()
-        binding.termsAndConditions.setText(getSpannableString(), TextView.BufferType.SPANNABLE)
+    private fun setListeners() {
+        binding.register.setOnClickListener(this::onRegisterClicked)
+        binding.login.setOnClickListener(this::moveToLoginFragment)
+        binding.google.setOnClickListener(this::registerWithGoogle)
+        binding.guest.setOnClickListener(this::registerWithGuest)
+        binding.facebook.setOnClickListener(this::registerWithGoogle)
+    }
 
+    private fun registerWithGuest(view: View) {
 
     }
 
-    private fun getSpannableString():SpannableString{
-        val spannableString = SpannableString(resources.getString(R.string.terms_and_conditions))
-        val clickableSpan = object:ClickableSpan(){
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.linkColor = ContextCompat.getColor(this@RegisterActivity,R.color.purple_700)
-                ds.isUnderlineText = true
-            }
-            override fun onClick(p0: View) {
-                //TODO move to Terms and conditions page
-            }
+    private fun onRegisterClicked(view:View) {
+        if(isPasswordRegular(binding.password.text.toString()))
+            return
+        if(viewModel.searchValidity(binding,isEmailSection) && searchConfirmation()){
+            //TODO move to Main Page fragment
         }
+    }
 
-        spannableString.setSpan(clickableSpan,29,50,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+    private fun isPasswordRegular(password: String): Boolean {
+        //TODO write here other password requirements
+        if(password.length < 6){
+            Toast.makeText(this,"The password can't be less than 6!",Toast.LENGTH_LONG).show()
+            return false
+        }
+        return true
+    }
 
-        return spannableString
+    private fun searchConfirmation():Boolean {
+        if(!binding.checkbox.isChecked){
+            Toast.makeText(this,"You must read terms and conditions and accept!",Toast.LENGTH_LONG).show()
+            binding.checkbox.error = "Accept it!"
+            return false
+            }
+        return true
+    }
+
+    private fun registerWithGoogle(view:View) {
+        //TODO register with google
+    }
+
+    private fun moveToLoginFragment(view:View) {
+        //TODO move to LoginFragment
     }
 }

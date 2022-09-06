@@ -15,17 +15,12 @@ class SplashFragment : Fragment() {
         FragmentSplashBinding.inflate(layoutInflater)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
-
-
-
     override fun onStart() {
         super.onStart()
+        runCountDownTimer()
+    }
+
+    private fun runCountDownTimer() {
         object : CountDownTimer(3000,1000) {
             override fun onTick(p0: Long) {
             }
@@ -37,6 +32,14 @@ class SplashFragment : Fragment() {
                     .commit()
             }
         }.start()
+    }
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return binding.root
     }
 
 }

@@ -7,4 +7,9 @@
     <string name="continue_as_guest">Continue as guest</string>
     <string name="continue_with_facebook">Continue with Facebook</string>
     <string name="have_an_account">Have an account?</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="or">or</string>
+    <string name="continue_with_google">Continue with Google</string>
 </resources>
