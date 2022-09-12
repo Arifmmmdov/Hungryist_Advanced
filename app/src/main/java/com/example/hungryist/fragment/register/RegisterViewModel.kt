@@ -1,4 +1,4 @@
-package com.example.hungryist.activity.register
+package com.example.hungryist.fragment.register
 
 import android.content.Context
 import android.text.SpannableString
@@ -6,7 +6,6 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import android.widget.CheckBox
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
